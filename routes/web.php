@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,10 +15,16 @@ use App\Http\Controllers\CartController;
 |
 */
 
-Route::get('/', [CartController::class, 'shop'])->name('shop');
-Route::get('/shop', [CartController::class, 'shop'])->name('shop');
-Route::get('/cart', [CartController::class, 'cart'])->name('cart.index');
-Route::post('/add', [CartController::class, 'add'])->name('cart.store');
-Route::post('/update', [CartController::class, 'update'])->name('cart.update');
-Route::post('/remove', [CartController::class, 'remove'])->name('cart.remove');
-Route::post('/clear', [CartController::class, 'clear'])->name('cart.clear');
+Route::prefix('')->middleware('auth')->group(function () {
+    Route::get('/', [CartController::class, 'shop'])->name('shop');
+    Route::get('/shop', [CartController::class, 'shop'])->name('shop');
+    Route::get('/cart', [CartController::class, 'cart'])->name('cart.index');
+    Route::post('/add', [CartController::class, 'add'])->name('cart.store');
+    Route::post('/update', [CartController::class, 'update'])->name('cart.update');
+    Route::post('/remove', [CartController::class, 'remove'])->name('cart.remove');
+    Route::post('/clear', [CartController::class, 'clear'])->name('cart.clear');
+});
+
+Route::get('/login', [UserController::class, 'index'])->name('login');
+Route::post('/login', [UserController::class, 'auth']);
+Route::get('/logout', [UserController::class, 'logout'])->name('logout');
