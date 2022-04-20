@@ -9,6 +9,9 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
+                    <div class="nav-link">Logged in as: {{ auth()->user()->name }}</div>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('shop') }}">Shop</a>
                 </li>
                 <li class="nav-item">

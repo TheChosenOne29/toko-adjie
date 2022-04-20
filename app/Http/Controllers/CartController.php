@@ -18,14 +18,16 @@ class CartController extends Controller
 
     public function cart()
     {
-        $cartCollection = \Cart::getContent();
+        $userId = auth()->user()->id;
+        $cartCollection = \Cart::session($userId)->getContent();
         // dd($cartCollection);
         return view('cart')->withTitle('Toko Adjie | Cart')->with(['cartCollection' => $cartCollection]);
     }
 
     public function add(Request $request)
     {
-        \Cart::add([
+        $userId = auth()->user()->id;
+        \Cart::session($userId)->add([
             'id' => $request->id,
             'name' => $request->name,
             'price' => $request->price,
@@ -39,14 +41,16 @@ class CartController extends Controller
 
     public function remove(Request $request)
     {
-        \Cart::remove($request->id);
+        $userId = auth()->user()->id;
+        \Cart::session($userId)->remove($request->id);
 
         return redirect()->route('cart.index')->with('success_msg', 'Item is removed!');
     }
 
     public function update(Request $request)
     {
-        \Cart::update($request->id,[
+        $userId = auth()->user()->id;
+        \Cart::session($userId)->update($request->id,[
             'quantity' => [
                 'relative' => false,
                 'value' => $request->quantity
@@ -58,8 +62,9 @@ class CartController extends Controller
 
     public function clear(Request $request)
     {
-        \Cart::clear();
+        $userId = auth()->user()->id;
+        \Cart::session($userId)->clear();
 
-        return redirect()->route('cart')->with('success_msg', 'Cart is cleared!');
+        return redirect()->route('cart.index')->with('success_msg', 'Cart is cleared!');
     }
 }
