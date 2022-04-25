@@ -20,11 +20,11 @@
                     @foreach($products as $pro)
                         <div class="col-lg-3">
                             <div class="card" style="margin-bottom: 20px; height: auto;">
-                                <img src="/images/{{ $pro->image_path }}"
+                                {{-- <img src="/images/{{ $pro->image_path }}"
                                      class="card-img-top mx-auto"
                                      style="height: 150px; width: 150px;display: block;"
                                      alt="{{ $pro->image_path }}"
-                                >
+                                > --}}
                                 <div class="card-body">
                                     <a href=""><h4 class="card-title">{{ $pro->name }}</h4></a>
                                     <h6>{{ $pro->desc }}</h6>
